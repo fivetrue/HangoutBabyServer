@@ -2,13 +2,18 @@ package com.fivetrue.hangoutbaby.vo;
 
 import com.fivetrue.db.DatabaseObject;
 import com.fivetrue.db.annotation.PrimaryKey;
+import com.fivetrue.db.annotation.StringLength;
 
 public class User extends DatabaseObject{
 	
 	@PrimaryKey
+	@StringLength(60)
 	private String userUid;
+	@StringLength(128)
 	private String userId;
+	@StringLength(400)
 	private String userImageUrl;
+	@StringLength(128)
 	private String gcmId;
 	private long registerDate;
 	private long lastDate;
