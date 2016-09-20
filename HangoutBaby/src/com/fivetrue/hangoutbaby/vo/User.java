@@ -11,7 +11,7 @@ public class User extends DatabaseObject{
 	private String userUid;
 	@StringLength(128)
 	private String userId;
-	@StringLength(400)
+	@StringLength(300)
 	private String userImageUrl;
 	@StringLength(128)
 	private String gcmId;
