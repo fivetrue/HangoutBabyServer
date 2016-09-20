@@ -13,7 +13,7 @@ public class User extends DatabaseObject{
 	private String userId;
 	@StringLength(300)
 	private String userImageUrl;
-	@StringLength(128)
+	@StringLength(256)
 	private String gcmId;
 	private long registerDate;
 	private long lastDate;
