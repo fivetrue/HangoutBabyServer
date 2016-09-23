@@ -1,5 +1,7 @@
 package com.fivetrue.hangoutbaby.api;
 
+import java.util.ArrayList;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +17,8 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 	public static final String PLACE_NAME = "name";
 	public static final String PLACE_LATITUDE = "lat";
 	public static final String PLACE_LONGITUDE = "lng";
-	public static final String PLACE_FEE = "fee";
 	public static final String PLACE_ADDRESS = "address";
 	public static final String PLACE_CITY = "city";
-	public static final String PLACE_IMAGE = "image";
 	public static final String PLACE_DESCRIPTION ="description";
 	public static final String PLACE_AUTHOR = "author";
 	
@@ -33,10 +33,8 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		String placeName = getParameter(PLACE_NAME);
 		String placelatitude = getParameter(PLACE_LATITUDE);
 		String placeLongitude = getParameter(PLACE_LONGITUDE);
-		String placeFee = getParameter(PLACE_FEE);
 		String placeAddress = getParameter(PLACE_ADDRESS);
 		String placeCity = getParameter(PLACE_CITY);
-		String placeImage = getParameter(PLACE_IMAGE);
 		String placeDescription = getParameter(PLACE_DESCRIPTION);
 		String placeAuthor = getParameter(PLACE_AUTHOR);
 		long placePostDate = System.currentTimeMillis();
@@ -60,14 +58,6 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 			return;
 		}
 
-		if(TextUtils.isEmpty(placeFee)){
-			result.setMessage("비용이 정확하지 않습니다.");
-			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
-			result.makeResponseTime();
-			writeObject(result);
-			return;
-		}
-
 		if(TextUtils.isEmpty(placeDescription)){
 			result.setMessage("설명이 정확하지 않습니다.");
 			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
@@ -84,31 +74,18 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 			return;
 		}
 
-		if(TextUtils.isEmpty(placeImage)){
-			result.setMessage("이미지가 정확하지 않습니다.");
-			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
-			result.makeResponseTime();
-			writeObject(result);
-			return;
-		}
-
-
-
 		Place place = new Place();
 		place.setPlaceName(placeName);
 		place.setPlaceLongitude(Double.parseDouble(placeLongitude));
 		place.setPlaceLatitude(Double.parseDouble(placelatitude));
-		place.setPlaceFee(placeFee);
-		place.setPlaceAddress(placeAddress);
 		place.setPlaceCity(placeCity);
 		place.setPlaceDescription(placeDescription);
 		place.setPlaceAuthor(placeAuthor);
 		place.setPlacePostDate(placePostDate);
-		place.setPlaceImageUrl(placeImage);
 
-		DBMessage message = PlaceDBManager.getInstance().insertObject(place);
+		PlaceDBManager.getInstance().insertObject(place);
 		result.setErrorCode(ErrorCode.OK);
-		result.setResult(message);
+		result.setResult(place);
 		result.makeResponseTime();
 		writeObject(result);
 		notifyNewPost(place);
@@ -122,7 +99,13 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		
 	}
 	
-	public void getPlaceList(){
+	public void getPlace(){
+		ArrayList<Place> places = PlaceDBManager.getInstance().getSelectQueryData(null, null, null);
+		Result result = new Result();
+		result.setErrorCode(ErrorCode.OK);
+		result.setResult(places);
+		result.makeResponseTime();
+		writeObject(result);
 		
 	}
 	

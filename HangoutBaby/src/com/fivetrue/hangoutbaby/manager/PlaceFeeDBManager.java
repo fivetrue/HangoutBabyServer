@@ -5,19 +5,19 @@ import com.fivetrue.db.manager.DatabaseManagerImpl;
 import com.fivetrue.hangoutbaby.Constants;
 import com.fivetrue.hangoutbaby.vo.Place;
 
-public class PlaceDBManager extends DatabaseManagerImpl<Place>{
+public class PlaceFeeDBManager extends DatabaseManagerImpl<Place>{
 
-	private static PlaceDBManager sInstance = null;
+	private static PlaceFeeDBManager sInstance = null;
 	
-	protected PlaceDBManager() {
+	protected PlaceFeeDBManager() {
 		super(Constants.DB_SERVER, Constants.DB_NAME, Constants.DB_ID, Constants.DB_PASS);
 		// TODO Auto-generated constructor stub
 		create();
 	}
 	
-	public static PlaceDBManager getInstance(){
+	public static PlaceFeeDBManager getInstance(){
 		if(sInstance == null){
-			sInstance = new PlaceDBManager();
+			sInstance = new PlaceFeeDBManager();
 		}
 		return sInstance;
 	}

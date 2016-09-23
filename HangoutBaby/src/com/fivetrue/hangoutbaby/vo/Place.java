@@ -1,17 +1,14 @@
 package com.fivetrue.hangoutbaby.vo;
 
 import com.fivetrue.db.DatabaseObject;
-import com.fivetrue.db.annotation.AutoIncrement;
 import com.fivetrue.db.annotation.ForeignKey;
+import com.fivetrue.db.annotation.MemberVariable;
 import com.fivetrue.db.annotation.PrimaryKey;
 import com.fivetrue.db.annotation.StringLength;
 
 public class Place extends DatabaseObject{
 	
 	@PrimaryKey
-	@AutoIncrement
-	private int placeNo;
-	
 	@StringLength(64)
 	private String placeId;
 	
@@ -21,34 +18,25 @@ public class Place extends DatabaseObject{
 	private double placeLatitude;
 	private double placeLongitude;
 	
-	@StringLength(64)
+	@StringLength(40)
 	private String placeCity;
 	
-	@StringLength(256)
+	@StringLength(80)
 	private String placeAddress;
 	
-	@StringLength(128)
-	private String placeImageUrl;
-	
-	private String placeFee;
-	
-	@StringLength(512)
+	@StringLength(256)
 	private String placeDescription;
 	
 	@ForeignKey(User.class)
+	@StringLength(60)
 	private String placeAuthor;
 	
 	private long placePostDate;
 	
 	private int placeCommentCount;
-
-	public int getPlaceNo() {
-		return placeNo;
-	}
-
-	public void setPlaceNo(int placeNo) {
-		this.placeNo = placeNo;
-	}
+	
+	@MemberVariable
+	private User user = null;
 
 	public String getPlaceId() {
 		return placeId;
@@ -90,30 +78,6 @@ public class Place extends DatabaseObject{
 		this.placeCity = placeCity;
 	}
 
-	public String getPlaceAddress() {
-		return placeAddress;
-	}
-
-	public void setPlaceAddress(String placeAddress) {
-		this.placeAddress = placeAddress;
-	}
-
-	public String getPlaceImageUrl() {
-		return placeImageUrl;
-	}
-
-	public void setPlaceImageUrl(String placeImageUrl) {
-		this.placeImageUrl = placeImageUrl;
-	}
-
-	public String getPlaceFee() {
-		return placeFee;
-	}
-
-	public void setPlaceFee(String placeFee) {
-		this.placeFee = placeFee;
-	}
-
 	public String getPlaceDescription() {
 		return placeDescription;
 	}
@@ -146,12 +110,28 @@ public class Place extends DatabaseObject{
 		this.placeCommentCount = placeCommentCount;
 	}
 
-	@Override
-	public String toString() {
-		return "Place [placeNo=" + placeNo + ", placeId=" + placeId + ", placeName=" + placeName + ", placeLatitude="
-				+ placeLatitude + ", placeLongitude=" + placeLongitude + ", placeCity=" + placeCity + ", placeAddress="
-				+ placeAddress + ", placeImageUrl=" + placeImageUrl + ", placeFee=" + placeFee + ", placeDescription="
-				+ placeDescription + ", placeAuthor=" + placeAuthor + ", placePostDate=" + placePostDate + "]";
+	public User getUser() {
+		return user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public String getPlaceAddress() {
+		return placeAddress;
+	}
+
+	public void setPlaceAddress(String placeAddress) {
+		this.placeAddress = placeAddress;
+	}
+
+	@Override
+	public String toString() {
+		return "Place [placeId=" + placeId + ", placeName=" + placeName + ", placeLatitude=" + placeLatitude
+				+ ", placeLongitude=" + placeLongitude + ", placeCity=" + placeCity + ", placeAddress=" + placeAddress
+				+ ", placeDescription=" + placeDescription + ", placeAuthor=" + placeAuthor + ", placePostDate="
+				+ placePostDate + ", placeCommentCount=" + placeCommentCount + ", user=" + user + "]";
+	}
+	
 }

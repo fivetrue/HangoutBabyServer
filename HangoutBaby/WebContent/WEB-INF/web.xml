@@ -12,6 +12,36 @@
     <url-pattern>/api/place/add</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>getPlace</servlet-name>
+    <jsp-file>/api/place/GetPlace.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>getPlace</servlet-name>
+    <url-pattern>/api/place/get</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>addPlaceComment</servlet-name>
+    <jsp-file>/api/place/AddPlaceComment.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>addPlaceComment</servlet-name>
+    <url-pattern>/api/place/comment/add</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>getPlaceComment</servlet-name>
+    <jsp-file>/api/place/GetPlaceComment.jsp</jsp-file>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>getPlaceComment</servlet-name>
+    <url-pattern>/api/place/comment/get</url-pattern>
+  </servlet-mapping>
+  
   
   <!-- User 관련  -->
   

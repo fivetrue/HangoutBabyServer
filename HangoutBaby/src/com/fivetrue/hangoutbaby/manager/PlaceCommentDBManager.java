@@ -1,35 +1,36 @@
 package com.fivetrue.hangoutbaby.manager;
 
 
+
 import com.fivetrue.db.manager.DatabaseManagerImpl;
 import com.fivetrue.hangoutbaby.Constants;
-import com.fivetrue.hangoutbaby.vo.Place;
+import com.fivetrue.hangoutbaby.vo.PlaceComment;
 
-public class PlaceDBManager extends DatabaseManagerImpl<Place>{
+public class PlaceCommentDBManager extends DatabaseManagerImpl<PlaceComment>{
 
-	private static PlaceDBManager sInstance = null;
+	private static PlaceCommentDBManager sInstance = null;
 	
-	protected PlaceDBManager() {
+	protected PlaceCommentDBManager() {
 		super(Constants.DB_SERVER, Constants.DB_NAME, Constants.DB_ID, Constants.DB_PASS);
 		// TODO Auto-generated constructor stub
 		create();
 	}
 	
-	public static PlaceDBManager getInstance(){
+	public static PlaceCommentDBManager getInstance(){
 		if(sInstance == null){
-			sInstance = new PlaceDBManager();
+			sInstance = new PlaceCommentDBManager();
 		}
 		return sInstance;
 	}
 
 	@Override
-	protected Class<? extends Place> getDatabaseObjectClass() {
+	protected Class<? extends PlaceComment> getDatabaseObjectClass() {
 		// TODO Auto-generated method stub
-		return Place.class;
+		return PlaceComment.class;
 	}
 
 	@Override
-	public Place getDefaultData() {
+	public PlaceComment getDefaultData() {
 		// TODO Auto-generated method stub
 		return null;
 	}

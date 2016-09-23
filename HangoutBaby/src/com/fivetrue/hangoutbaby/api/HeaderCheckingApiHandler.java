@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 
 abstract public class HeaderCheckingApiHandler extends BaseApiHandler{
+	
 
 	private Gson mGson = null;
 	public HeaderCheckingApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
