@@ -8,6 +8,7 @@ public class PlaceFeeBand extends DatabaseObject{
 	@PrimaryKey
 	private  int bandId;
 	private String band;
+	private String currency;
 	
 	public int getBandId() {
 		return bandId;
@@ -21,6 +22,14 @@ public class PlaceFeeBand extends DatabaseObject{
 	}
 	public void setBand(String band) {
 		this.band = band;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 	
 }
