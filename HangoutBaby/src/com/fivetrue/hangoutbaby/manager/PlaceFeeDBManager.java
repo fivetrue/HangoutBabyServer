@@ -3,9 +3,9 @@ package com.fivetrue.hangoutbaby.manager;
 
 import com.fivetrue.db.manager.DatabaseManagerImpl;
 import com.fivetrue.hangoutbaby.Constants;
-import com.fivetrue.hangoutbaby.vo.Place;
+import com.fivetrue.hangoutbaby.vo.PlaceFeeBand;
 
-public class PlaceFeeDBManager extends DatabaseManagerImpl<Place>{
+public class PlaceFeeDBManager extends DatabaseManagerImpl<PlaceFeeBand>{
 
 	private static PlaceFeeDBManager sInstance = null;
 	
@@ -23,13 +23,13 @@ public class PlaceFeeDBManager extends DatabaseManagerImpl<Place>{
 	}
 
 	@Override
-	protected Class<? extends Place> getDatabaseObjectClass() {
+	protected Class<? extends PlaceFeeBand> getDatabaseObjectClass() {
 		// TODO Auto-generated method stub
-		return Place.class;
+		return PlaceFeeBand.class;
 	}
 
 	@Override
-	public Place getDefaultData() {
+	public PlaceFeeBand getDefaultData() {
 		// TODO Auto-generated method stub
 		return null;
 	}

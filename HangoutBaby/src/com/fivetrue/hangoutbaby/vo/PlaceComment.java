@@ -23,6 +23,8 @@ public class PlaceComment extends DatabaseObject{
 	
 	private int feeBand;
 	
+	private float rate;
+	
 	@ForeignKey(User.class)
 	@StringLength(60)
 	private String commentAuthor;
@@ -83,6 +85,14 @@ public class PlaceComment extends DatabaseObject{
 
 	public void setCommentDate(long commentDate) {
 		this.commentDate = commentDate;
+	}
+	
+	public float getRate() {
+		return rate;
+	}
+
+	public void setRate(float rate) {
+		this.rate = rate;
 	}
 
 	@Override

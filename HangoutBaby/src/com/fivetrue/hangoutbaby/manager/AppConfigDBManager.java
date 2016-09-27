@@ -1,6 +1,7 @@
 package com.fivetrue.hangoutbaby.manager;
 
 
+
 import com.fivetrue.db.DBMessage;
 import com.fivetrue.db.manager.DatabaseManagerImpl;
 import com.fivetrue.hangoutbaby.Constants;
@@ -23,7 +24,6 @@ public class AppConfigDBManager extends DatabaseManagerImpl<AppConfig>{
 		}
 		return sInstance;
 	}
-
 	@Override
 	protected Class<? extends AppConfig> getDatabaseObjectClass() {
 		// TODO Auto-generated method stub
@@ -40,7 +40,6 @@ public class AppConfigDBManager extends DatabaseManagerImpl<AppConfig>{
 		config.setAppVersionCode(Constants.APP_LATEST_VERSION);
 		config.setAppVersionName(Constants.APP_VERSION_NAME);
 		config.setSenderId(Constants.GCM.GCM_SENDER_ID);
-		
 		return config;
 	}
 	

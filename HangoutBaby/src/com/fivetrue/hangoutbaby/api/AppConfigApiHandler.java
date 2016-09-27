@@ -3,6 +3,7 @@ package com.fivetrue.hangoutbaby.api;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.fivetrue.api.Result;
 import com.fivetrue.db.DBMessage;
 import com.fivetrue.hangoutbaby.manager.AppConfigDBManager;
+import com.fivetrue.hangoutbaby.manager.PlaceFeeDBManager;
 import com.fivetrue.hangoutbaby.vo.AppConfig;
+import com.fivetrue.hangoutbaby.vo.PlaceFeeBand;
 
 
 
@@ -31,7 +34,9 @@ public class AppConfigApiHandler extends HeaderCheckingApiHandler{
 			ArrayList<AppConfig> configs = AppConfigDBManager.getInstance().getSelectQueryData(null, null, "ORDER BY appVersionCode DESC LIMIT 1");
 			if(configs != null && configs.size() > 0){
 				config = configs.get(0);
+				config.setFeeBands(PlaceFeeDBManager.getInstance().getSelectQueryData(null, null, null));
 			}
+			
 			result.setResult(config);
 			writeObject(result);
 		}
