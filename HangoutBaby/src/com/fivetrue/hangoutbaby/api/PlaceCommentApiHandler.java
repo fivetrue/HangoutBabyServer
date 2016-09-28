@@ -25,6 +25,7 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 	public static final String PLACE_IMAGE_URL = "imageUrl";
 	public static final String PLACE_COMMENT = "comment";
 	public static final String PLACE_FEE = "fee";
+	public static final String PLACE_RATE = "rate";
 	public static final String PLACE_UPLOADER = "author";
 	
 	
@@ -41,6 +42,7 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 		String fee = getParameter(PLACE_FEE);
 		String comment = getParameter(PLACE_COMMENT);
 		String commentAuthor = getParameter(PLACE_UPLOADER);
+		String rate = getParameter(PLACE_RATE);
 		long placePostDate = System.currentTimeMillis();
 
 		Result result = new Result();
@@ -77,6 +79,15 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 			return;
 		}
 		
+		if(TextUtils.isEmpty(rate)){
+			result.setMessage("평점이 지정되지 않았습니다.");
+			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
+		
+		
 		User user = UserDBManager.getInstance().isExistUid(commentAuthor);
 		if(user == null){
 			result.setMessage("존재하지 않는 회원 입니다.");
@@ -111,10 +122,13 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 		placeComment.setCommentAuthor(commentAuthor);
 		try{
 			int feeBand = Integer.parseInt(fee.trim());
-			placeComment.setFeeBand(feeBand);	
+			placeComment.setFeeBand(feeBand);
+			float rating = Float.parseFloat(rate.trim());
+			placeComment.setRate(rating);
 		}catch(Exception e){
 			
 		}
+		
 		if(imageUrl != null){
 			placeComment.setImageUrl(imageUrl);
 		}
