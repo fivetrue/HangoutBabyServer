@@ -44,7 +44,7 @@ public class UserApiHandler extends HeaderCheckingApiHandler{
 		}
 		
 		long registerDate = System.currentTimeMillis();
-		User user = UserDBManager.getInstance().isExistUser(userUid);
+		User user = UserDBManager.getInstance().isExistUid(userUid);
 		
 		if(user != null){
 //			if(userImageUrl != null){
@@ -97,7 +97,7 @@ public class UserApiHandler extends HeaderCheckingApiHandler{
 			return;
 		}
 		
-		User user = UserDBManager.getInstance().isExistUser(userUid);
+		User user = UserDBManager.getInstance().isExistUid(userUid);
 		if(user == null){
 			result.setMessage("존재하지 않는 ID 입니다.");
 			result.setErrorCode(ErrorCode.NOT_FOUND_DATA);

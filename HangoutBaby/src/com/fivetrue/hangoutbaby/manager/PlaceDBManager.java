@@ -1,9 +1,12 @@
 package com.fivetrue.hangoutbaby.manager;
 
 
+import java.util.ArrayList;
+
 import com.fivetrue.db.manager.DatabaseManagerImpl;
 import com.fivetrue.hangoutbaby.Constants;
 import com.fivetrue.hangoutbaby.vo.Place;
+import com.fivetrue.utils.TextUtils;
 
 public class PlaceDBManager extends DatabaseManagerImpl<Place>{
 
@@ -32,6 +35,17 @@ public class PlaceDBManager extends DatabaseManagerImpl<Place>{
 	public Place getDefaultData() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Place isExistPlaceId(String placeId){
+		Place u = null;
+		if(!TextUtils.isEmpty(placeId)){
+			ArrayList<Place> datas = getSelectQueryData(null, "placeId='" + placeId +"'", "LIMIT 1");
+			if(datas != null && datas.size() > 0){
+				u = datas.get(0);
+			}
+		}
+		return u;
 	}
 	
 }

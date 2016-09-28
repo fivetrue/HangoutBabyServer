@@ -9,7 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.fivetrue.api.Result;
 import com.fivetrue.db.PageData;
 import com.fivetrue.hangoutbaby.manager.PlaceCommentDBManager;
+import com.fivetrue.hangoutbaby.manager.PlaceDBManager;
+import com.fivetrue.hangoutbaby.manager.PlaceFeeDBManager;
+import com.fivetrue.hangoutbaby.manager.UserDBManager;
+import com.fivetrue.hangoutbaby.vo.Place;
 import com.fivetrue.hangoutbaby.vo.PlaceComment;
+import com.fivetrue.hangoutbaby.vo.PlaceFeeBand;
+import com.fivetrue.hangoutbaby.vo.User;
 import com.fivetrue.utils.TextUtils;
 
 public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
@@ -46,13 +52,13 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 			return;
 		}
 
-		if(TextUtils.isEmpty(PLACE_IMAGE_URL)){
-			result.setMessage("이미지 정보가 없습니다.");
-			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
-			result.makeResponseTime();
-			writeObject(result);
-			return;
-		}
+//		if(TextUtils.isEmpty(PLACE_IMAGE_URL)){
+//			result.setMessage("이미지 정보가 없습니다.");
+//			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
+//			result.makeResponseTime();
+//			writeObject(result);
+//			return;
+//		}
 
 		if(TextUtils.isEmpty(commentAuthor)){
 			result.setMessage("작성자가 정확하지 않습니다.");
@@ -69,7 +75,34 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 			writeObject(result);
 			return;
 		}
-
+		
+		User user = UserDBManager.getInstance().isExistUid(commentAuthor);
+		if(user == null){
+			result.setMessage("존재하지 않는 회원 입니다.");
+			result.setErrorCode(ErrorCode.NOT_FOUND_DATA);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
+		
+		Place place = PlaceDBManager.getInstance().isExistPlaceId(placeId);
+		if(place == null){
+			result.setMessage("존재하지 않는 장소 입니다.");
+			result.setErrorCode(ErrorCode.NOT_FOUND_DATA);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
+		
+		PlaceFeeBand feeband = PlaceFeeDBManager.getInstance().isExistBandId(fee);
+		
+		if(feeband == null){
+			result.setMessage("존재하지 않는 FeeBandId 입니다.");
+			result.setErrorCode(ErrorCode.NOT_FOUND_DATA);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
 
 		PlaceComment placeComment = new PlaceComment();
 		placeComment.setPlaceId(placeId);
@@ -81,9 +114,10 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 		}catch(Exception e){
 			
 		}
-		placeComment.setImageUrl(imageUrl);
+		if(imageUrl != null){
+			placeComment.setImageUrl(imageUrl);
+		}
 		placeComment.setCommentDate(placePostDate);
-		
 		PlaceCommentDBManager.getInstance().insertObject(placeComment);
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(placeComment);

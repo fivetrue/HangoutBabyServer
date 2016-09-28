@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.fivetrue.api.Result;
 import com.fivetrue.db.DBMessage;
 import com.fivetrue.hangoutbaby.manager.PlaceDBManager;
+import com.fivetrue.hangoutbaby.manager.UserDBManager;
 import com.fivetrue.hangoutbaby.vo.Place;
+import com.fivetrue.hangoutbaby.vo.User;
 import com.fivetrue.utils.TextUtils;
 
 public class PlaceApiHandler extends HeaderCheckingApiHandler{
 	
+	public static final String PLACE_ID = "id";
 	public static final String PLACE_NAME = "name";
 	public static final String PLACE_LATITUDE = "lat";
 	public static final String PLACE_LONGITUDE = "lng";
@@ -30,6 +33,7 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 	}
 	
 	public void addPlace(){
+		String placeId = getParameter(PLACE_ID);
 		String placeName = getParameter(PLACE_NAME);
 		String placelatitude = getParameter(PLACE_LATITUDE);
 		String placeLongitude = getParameter(PLACE_LONGITUDE);
@@ -40,6 +44,14 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		long placePostDate = System.currentTimeMillis();
 
 		Result result = new Result();
+		
+		if(TextUtils.isEmpty(placeId)){
+			result.setMessage("PlaceId가 정확하지 않습니다.");
+			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
 
 		if(TextUtils.isEmpty(placeName)){
 			result.setMessage("이름이 정확하지 않습니다.");
@@ -73,8 +85,27 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 			writeObject(result);
 			return;
 		}
+		
+		User user = UserDBManager.getInstance().isExistUid(placeAuthor);
+		if(user == null){
+			result.setMessage("존재하지 않는 회원입니다.");
+			result.setErrorCode(ErrorCode.NOT_FOUND_DATA);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
+		
+		Place place = PlaceDBManager.getInstance().isExistPlaceId(placeId);
+		if(place != null){
+			result.setMessage("이미 등록된 장소 입니다.");
+			result.setErrorCode(ErrorCode.EXIST_DATA);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
 
-		Place place = new Place();
+		place = new Place();
+		place.setPlaceId(placeId);
 		place.setPlaceName(placeName);
 		place.setPlaceLongitude(Double.parseDouble(placeLongitude));
 		place.setPlaceLatitude(Double.parseDouble(placelatitude));

@@ -1,9 +1,12 @@
 package com.fivetrue.hangoutbaby.manager;
 
 
+import java.util.ArrayList;
+
 import com.fivetrue.db.manager.DatabaseManagerImpl;
 import com.fivetrue.hangoutbaby.Constants;
 import com.fivetrue.hangoutbaby.vo.PlaceFeeBand;
+import com.fivetrue.utils.TextUtils;
 
 public class PlaceFeeDBManager extends DatabaseManagerImpl<PlaceFeeBand>{
 
@@ -32,6 +35,17 @@ public class PlaceFeeDBManager extends DatabaseManagerImpl<PlaceFeeBand>{
 	public PlaceFeeBand getDefaultData() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public PlaceFeeBand isExistBandId(String bandId){
+		PlaceFeeBand u = null;
+		if(!TextUtils.isEmpty(bandId)){
+			ArrayList<PlaceFeeBand> datas = getSelectQueryData(null, "bandId=" + bandId, "LIMIT 1");
+			if(datas != null && datas.size() > 0){
+				u = datas.get(0);
+			}
+		}
+		return u;
 	}
 	
 }

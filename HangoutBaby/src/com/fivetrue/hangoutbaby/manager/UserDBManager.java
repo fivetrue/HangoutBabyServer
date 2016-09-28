@@ -48,14 +48,10 @@ public class UserDBManager extends DatabaseManagerImpl<User>{
 		return null;
 	}
 	
-	public User isExistUser(User user){
-		return isExistUser(user.getUserId());
-	}
-	
-	public User isExistUser(String userId){
+	public User isExistUid(String userUid){
 		User u = null;
-		if(!TextUtils.isEmpty(userId)){
-			ArrayList<User> datas = getSelectQueryData(null, "userUid='" + userId +"'", "LIMIT 1");
+		if(!TextUtils.isEmpty(userUid)){
+			ArrayList<User> datas = getSelectQueryData(null, "userUid='" + userUid +"'", "LIMIT 1");
 			if(datas != null && datas.size() > 0){
 				u = datas.get(0);
 			}
@@ -63,15 +59,17 @@ public class UserDBManager extends DatabaseManagerImpl<User>{
 		return u;
 	}
 	
-//	@Override
-//	public DBMessage create() {
-//		// TODO Auto-generated method stub
-//		DBMessage msg = super.create();
-//		if(getCountData(null) <= 0){
-//			insertObject(getDefaultData());
-//		}
-//		return msg;
-//	}
+	public User isExistEmail(String userEmail){
+		User u = null;
+		if(!TextUtils.isEmpty(userEmail)){
+			ArrayList<User> datas = getSelectQueryData(null, "userId='" + userEmail +"'", "LIMIT 1");
+			if(datas != null && datas.size() > 0){
+				u = datas.get(0);
+			}
+		}
+		return u;
+	}
+	
 	
 
 }
