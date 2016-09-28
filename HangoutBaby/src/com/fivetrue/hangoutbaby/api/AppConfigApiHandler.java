@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.api.Result;
 import com.fivetrue.db.DBMessage;
+import com.fivetrue.hangoutbaby.dto.AppConfigEntry;
 import com.fivetrue.hangoutbaby.manager.AppConfigDBManager;
 import com.fivetrue.hangoutbaby.manager.PlaceFeeDBManager;
 import com.fivetrue.hangoutbaby.vo.AppConfig;
@@ -34,10 +35,12 @@ public class AppConfigApiHandler extends HeaderCheckingApiHandler{
 			ArrayList<AppConfig> configs = AppConfigDBManager.getInstance().getSelectQueryData(null, null, "ORDER BY appVersionCode DESC LIMIT 1");
 			if(configs != null && configs.size() > 0){
 				config = configs.get(0);
-				config.setFeeBands(PlaceFeeDBManager.getInstance().getSelectQueryData(null, null, null));
 			}
 			
-			result.setResult(config);
+			AppConfigEntry configEntry = new AppConfigEntry();
+			configEntry.setAppConfig(config);
+			configEntry.feeBands = PlaceFeeDBManager.getInstance().getSelectQueryData(null, null, null);
+			result.setResult(configEntry);
 			writeObject(result);
 		}
 	}

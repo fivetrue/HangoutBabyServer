@@ -1,5 +1,6 @@
 package com.fivetrue.hangoutbaby.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fivetrue.db.DatabaseObject;
@@ -24,9 +25,6 @@ public class AppConfig extends DatabaseObject{
     
     private String adminUrl = null;
     
-    @MemberVariable
-    public List<PlaceFeeBand> feeBands = null;
-
 	public String getAppId() {
 		return appId;
 	}
@@ -97,14 +95,6 @@ public class AppConfig extends DatabaseObject{
 
 	public void setConfigId(int configId) {
 		this.configId = configId;
-	}
-
-	public List<PlaceFeeBand> getFeeBands() {
-		return feeBands;
-	}
-
-	public void setFeeBands(List<PlaceFeeBand> feeBands) {
-		this.feeBands = feeBands;
 	}
 
 	@Override
