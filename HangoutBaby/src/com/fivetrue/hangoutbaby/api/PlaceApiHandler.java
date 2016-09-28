@@ -109,6 +109,7 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		place.setPlaceName(placeName);
 		place.setPlaceLongitude(Double.parseDouble(placeLongitude));
 		place.setPlaceLatitude(Double.parseDouble(placelatitude));
+		place.setPlaceAddress(placeAddress);
 		place.setPlaceCity(placeCity);
 		place.setPlaceDescription(placeDescription);
 		place.setPlaceAuthor(placeAuthor);
