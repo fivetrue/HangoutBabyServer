@@ -114,9 +114,10 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		place.setPlaceAuthor(placeAuthor);
 		place.setPlacePostDate(placePostDate);
 
-		PlaceDBManager.getInstance().insertObject(place);
+		DBMessage message = PlaceDBManager.getInstance().insertObject(place);
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(place);
+		result.setMessage(message.getMessage());
 		result.makeResponseTime();
 		writeObject(result);
 		notifyNewPost(place);

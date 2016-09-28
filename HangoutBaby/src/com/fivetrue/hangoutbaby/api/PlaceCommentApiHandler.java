@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.api.Result;
+import com.fivetrue.db.DBMessage;
 import com.fivetrue.db.PageData;
 import com.fivetrue.hangoutbaby.manager.PlaceCommentDBManager;
 import com.fivetrue.hangoutbaby.manager.PlaceDBManager;
@@ -118,9 +119,10 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 			placeComment.setImageUrl(imageUrl);
 		}
 		placeComment.setCommentDate(placePostDate);
-		PlaceCommentDBManager.getInstance().insertObject(placeComment);
+		DBMessage message = PlaceCommentDBManager.getInstance().insertObject(placeComment);
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(placeComment);
+		result.setMessage(message.getMessage());
 		result.makeResponseTime();
 		writeObject(result);
 		notifyNewPost(placeComment);

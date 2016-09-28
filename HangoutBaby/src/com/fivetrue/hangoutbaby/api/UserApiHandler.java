@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.api.Result;
+import com.fivetrue.db.DBMessage;
 import com.fivetrue.hangoutbaby.manager.UserDBManager;
 import com.fivetrue.hangoutbaby.vo.NotificationData;
 import com.fivetrue.hangoutbaby.vo.PushMessage;
@@ -73,9 +74,10 @@ public class UserApiHandler extends HeaderCheckingApiHandler{
 			user.setGcmId(userGcmId);
 			user.setState(state);
 				
-			UserDBManager.getInstance().insertObject(user);
+			DBMessage message = UserDBManager.getInstance().insertObject(user);
 			result.setErrorCode(ErrorCode.OK);
 			result.setResult(user);
+			result.setMessage(message.getMessage());
 			result.makeResponseTime();
 			writeObject(result);
 		}
@@ -113,9 +115,10 @@ public class UserApiHandler extends HeaderCheckingApiHandler{
 		if(userGcmId != null){
 			user.setGcmId(userGcmId);
 		}
-		UserDBManager.getInstance().updateObject(user);
+		DBMessage message = UserDBManager.getInstance().updateObject(user);
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(user);
+		result.setMessage(message.getMessage());
 		result.makeResponseTime();
 		writeObject(result);
 		
