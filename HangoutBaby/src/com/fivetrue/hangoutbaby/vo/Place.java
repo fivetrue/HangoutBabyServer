@@ -12,7 +12,7 @@ public class Place extends DatabaseObject{
 	@StringLength(64)
 	private String placeId;
 	
-	@StringLength(128)
+	@StringLength(64)
 	private String placeName;
 
 	private double placeLatitude;
@@ -21,7 +21,7 @@ public class Place extends DatabaseObject{
 	@StringLength(40)
 	private String placeCity;
 	
-	@StringLength(80)
+	@StringLength(64)
 	private String placeAddress;
 	
 	@StringLength(256)
