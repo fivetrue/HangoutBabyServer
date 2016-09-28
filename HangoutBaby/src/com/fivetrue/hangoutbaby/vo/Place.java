@@ -18,7 +18,7 @@ public class Place extends DatabaseObject{
 	private double placeLatitude;
 	private double placeLongitude;
 	
-	@StringLength(40)
+	@StringLength(80)
 	private String placeCity;
 	
 	@StringLength(64)
