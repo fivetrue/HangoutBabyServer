@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.api.Result;
 import com.fivetrue.db.DBMessage;
+import com.fivetrue.db.PageData;
 import com.fivetrue.hangoutbaby.manager.PlaceDBManager;
 import com.fivetrue.hangoutbaby.manager.UserDBManager;
 import com.fivetrue.hangoutbaby.vo.Place;
@@ -133,7 +134,26 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 	}
 	
 	public void getPlace(){
-		ArrayList<Place> places = PlaceDBManager.getInstance().getSelectQueryData(null, null, null);
+		PageData pageData = getPageData();
+		String paging = null;
+		if(pageData != null){
+			paging = pageData.toString();
+		}
+		String extra = getOrderBy();
+		
+		if(extra == null && paging != null){
+			extra = paging;
+		}else if(extra != null && paging != null){
+			extra += " " + paging;
+		}
+		
+		String placeId = getParameter(PLACE_ID);
+		String where = null;
+		if(placeId != null){
+			where = "placeId='" + placeId + "'";
+		}
+		
+		ArrayList<Place> places = PlaceDBManager.getInstance().getSelectQueryData(null, where, extra);
 		Result result = new Result();
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(places);
