@@ -139,7 +139,13 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		if(pageData != null){
 			paging = pageData.toString();
 		}
-		String extra = getOrderBy();
+		String orderBy = getOrderBy();
+		String extra = null;
+		
+		if(orderBy != null){
+			extra = "ORDER BY " + orderBy;
+		}
+		
 		
 		if(extra == null && paging != null){
 			extra = paging;
