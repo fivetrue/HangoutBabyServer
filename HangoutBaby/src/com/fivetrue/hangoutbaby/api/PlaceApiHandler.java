@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fivetrue.api.Result;
 import com.fivetrue.db.DBMessage;
 import com.fivetrue.db.PageData;
+import com.fivetrue.hangoutbaby.dto.PlaceEntry;
+import com.fivetrue.hangoutbaby.manager.PlaceCommentDBManager;
 import com.fivetrue.hangoutbaby.manager.PlaceDBManager;
 import com.fivetrue.hangoutbaby.manager.UserDBManager;
 import com.fivetrue.hangoutbaby.vo.Place;
@@ -160,9 +162,20 @@ public class PlaceApiHandler extends HeaderCheckingApiHandler{
 		}
 		
 		ArrayList<Place> places = PlaceDBManager.getInstance().getSelectQueryData(null, where, extra);
+		ArrayList<PlaceEntry> placeEntries = new ArrayList<>();
+		for(Place p : places){
+			PlaceEntry entry = new PlaceEntry();
+			entry.place = p;
+			int count = PlaceCommentDBManager.getInstance().getCountData("placeId='" + p.getPlaceId() + "'");
+			entry.placeCommentCount = count;
+			int avg = PlaceCommentDBManager.getInstance().getAverageValue("rate", "placeId='" + p.getPlaceId() + "'");
+			entry.averageRate = avg;
+			placeEntries.add(entry);
+		}
+
 		Result result = new Result();
 		result.setErrorCode(ErrorCode.OK);
-		result.setResult(places);
+		result.setResult(placeEntries);
 		result.makeResponseTime();
 		writeObject(result);
 		
