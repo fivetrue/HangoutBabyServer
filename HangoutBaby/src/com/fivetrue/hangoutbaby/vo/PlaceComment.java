@@ -3,6 +3,7 @@ package com.fivetrue.hangoutbaby.vo;
 import com.fivetrue.db.DatabaseObject;
 import com.fivetrue.db.annotation.AutoIncrement;
 import com.fivetrue.db.annotation.ForeignKey;
+import com.fivetrue.db.annotation.MemberVariable;
 import com.fivetrue.db.annotation.PrimaryKey;
 import com.fivetrue.db.annotation.StringLength;
 
@@ -30,6 +31,9 @@ public class PlaceComment extends DatabaseObject{
 	private String commentAuthor;
 	
 	private long commentDate;
+	
+	@MemberVariable
+	private User commentUser = null;
 	
 	public String getPlaceId() {
 		return placeId;
@@ -93,6 +97,14 @@ public class PlaceComment extends DatabaseObject{
 
 	public void setRate(float rate) {
 		this.rate = rate;
+	}
+	
+	public User getCommentUser() {
+		return commentUser;
+	}
+
+	public void setCommentUser(User commentUser) {
+		this.commentUser = commentUser;
 	}
 
 	@Override

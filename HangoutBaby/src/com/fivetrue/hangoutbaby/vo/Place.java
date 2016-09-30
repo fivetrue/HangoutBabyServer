@@ -15,8 +15,10 @@ public class Place extends DatabaseObject{
 	@StringLength(64)
 	private String placeName;
 
-	private double placeLatitude;
-	private double placeLongitude;
+	@StringLength(16)
+	private String placeLatitude;
+	@StringLength(16)
+	private String placeLongitude;
 	
 	@StringLength(80)
 	private String placeCity;
@@ -54,19 +56,20 @@ public class Place extends DatabaseObject{
 		this.placeName = placeName;
 	}
 
-	public double getPlaceLatitude() {
+
+	public String getPlaceLatitude() {
 		return placeLatitude;
 	}
 
-	public void setPlaceLatitude(double placeLatitude) {
+	public void setPlaceLatitude(String placeLatitude) {
 		this.placeLatitude = placeLatitude;
 	}
 
-	public double getPlaceLongitude() {
+	public String getPlaceLongitude() {
 		return placeLongitude;
 	}
 
-	public void setPlaceLongitude(double placeLongitude) {
+	public void setPlaceLongitude(String placeLongitude) {
 		this.placeLongitude = placeLongitude;
 	}
 
