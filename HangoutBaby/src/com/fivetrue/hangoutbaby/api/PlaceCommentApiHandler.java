@@ -166,9 +166,9 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 		ArrayList<PlaceComment> datas = null;
 		PageData page = getPageData();
 		if(page != null){
-			datas = PlaceCommentDBManager.getInstance().getPagingData(null, "placeId='" + placeId + "'", "ORDER BY DESC commentDate", page);
+			datas = PlaceCommentDBManager.getInstance().getPagingData(null, "placeId='" + placeId + "'", "ORDER BY commentDate DESC", page);
 		}else{
-			datas = PlaceCommentDBManager.getInstance().getSelectQueryData(null, "placeId='" + placeId + "'", "ORDER BY DESC commentDate");
+			datas = PlaceCommentDBManager.getInstance().getSelectQueryData(null, "placeId='" + placeId + "'", "ORDER BY commentDate DESC");
 		}
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(datas);
