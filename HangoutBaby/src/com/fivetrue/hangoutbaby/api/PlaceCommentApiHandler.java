@@ -55,13 +55,13 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 			return;
 		}
 
-//		if(TextUtils.isEmpty(PLACE_IMAGE_URL)){
-//			result.setMessage("이미지 정보가 없습니다.");
-//			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
-//			result.makeResponseTime();
-//			writeObject(result);
-//			return;
-//		}
+		if(TextUtils.isEmpty(PLACE_IMAGE_URL)){
+			result.setMessage("이미지 정보가 없습니다.");
+			result.setErrorCode(ErrorCode.INVALID_PARAMETER);
+			result.makeResponseTime();
+			writeObject(result);
+			return;
+		}
 
 		if(TextUtils.isEmpty(commentAuthor)){
 			result.setMessage("작성자가 정확하지 않습니다.");
@@ -166,9 +166,9 @@ public class PlaceCommentApiHandler extends HeaderCheckingApiHandler{
 		ArrayList<PlaceComment> datas = null;
 		PageData page = getPageData();
 		if(page != null){
-			datas = PlaceCommentDBManager.getInstance().getPagingData(null, "placeId='" + placeId + "'", "DESC commentDate", page);
+			datas = PlaceCommentDBManager.getInstance().getPagingData(null, "placeId='" + placeId + "'", "ORDER BY DESC commentDate", page);
 		}else{
-			datas = PlaceCommentDBManager.getInstance().getSelectQueryData(null, "placeId='" + placeId + "'", "DESC commentDate");
+			datas = PlaceCommentDBManager.getInstance().getSelectQueryData(null, "placeId='" + placeId + "'", "ORDER BY DESC commentDate");
 		}
 		result.setErrorCode(ErrorCode.OK);
 		result.setResult(datas);
